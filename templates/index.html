@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- Left Column - Installations -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Installations</h6>
+            </div>
+            <div class="card-body p-0">
+                {% if error %}
+                    <div class="alert alert-danger m-3">
+                        Error: {{ error }}
+                    </div>
+                {% elif installations %}
+                    <div class="list-group list-group-flush">
+                        {% for installation in installations %}
+                            <a href="/installation/{{ installation }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-folder me-2"></i>{{ installation|replace('_', ' ') }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center text-muted p-3">
+                        No installations found
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column - Welcome -->
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Welcome</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-center text-muted py-5">
+                    <i class="bi bi-arrow-left-circle" style="font-size: 2rem;"></i>
+                    <p class="mt-2">Select an installation from the left panel to view backups</p>
+                    <p>Or use <a href="/all-backups" class="btn btn-outline-primary btn-sm">All Backups</a> to see everything</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

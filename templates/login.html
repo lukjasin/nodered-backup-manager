@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Node-RED Backups{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-header text-center">
+                <h5 class="mb-0">Authentication Required</h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <i class="bi bi-shield-lock" style="font-size: 3rem; color: var(--bs-primary);"></i>
+                </div>
+
+                <p class="text-muted mb-4">
+                    To access the backup manager, you need to authenticate through Node-RED.
+                </p>
+
+                <div class="alert alert-info">
+                    <strong>How to get access:</strong><br>
+                    1. Go to your Node-RED dashboard<br>
+                    2. Click the "Backup Manager Access" button<br>
+                    3. Return here - you'll be automatically logged in
+                </div>
+
+                <div class="mt-4">
+                    <small class="text-muted">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Authentication is valid for 24 hours
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ installation_name }} - Node-RED Backups{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Left Column - Installations -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Installations</h6>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for installation in installations %}
+                        <a href="/installation/{{ installation }}"
+                           class="list-group-item list-group-item-action {{ 'active' if installation == installation_name }}">
+                            <i class="bi bi-folder me-2"></i>{{ installation|replace('_', ' ') }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column - Backups -->
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">Backups for {{ installation_name|replace('_', ' ') }}</h6>
+                <small class="text-muted">{{ files|length }} backup{{ 's' if files|length != 1 }}</small>
+            </div>
+            <div class="card-body">
+                {% if files %}
+                    {% for file in files %}
+                        <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                            <div>
+                                <strong>{{ file.filename }}</strong><br>
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar me-1"></i>{{ file.modified.strftime('%Y-%m-%d %H:%M') }}
+                                    <i class="bi bi-file-earmark ms-3 me-1"></i>{{ "%.1f"|format(file.size / 1024) }} KB
+                                </small>
+                            </div>
+                            <div>
+                                <a href="/api/installations/{{ installation_name }}/files/{{ file.filename }}" download
+                                   class="btn btn-outline-success btn-sm" title="Download">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center text-muted py-5">
+                        <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                        <p class="mt-2">No backups found for this installation</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
